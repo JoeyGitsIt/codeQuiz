@@ -10,13 +10,9 @@ var questionAnswerArray = [
   ["A very useful tool used during development and debugging for printing content to the debugger is:", "1. JavaScript", "2. terminal / bash", "3. for loops", "4. console.log", "4. console.log"]
 ]
 
-questionIndex = 0;
-
-timerCount = 75;
-
-answerWrong = false;
-
-highscores = [];
+var questionIndex = 0;
+var finished = false;
+var timerCount = 75;
 
 startQuiz();
 
@@ -31,7 +27,6 @@ function renderQuestion () {
   // add some sort of styling to make it look like h1
   displayQuiz.textContent = questionAnswerArray[questionIndex][0];
   var displayAnswers = document.createElement("ul");
-  // var stupidLiElement = document.createElement("li");
 
   displayQuiz.appendChild(displayAnswers);
   // pass some variable into the first dimension of the array that iterates???
@@ -45,69 +40,67 @@ function renderQuestion () {
   }
 }
 
+// checks answer and then executes based on accuracy
 function checkAnswer(event) {
   console.log(event.target.textContent);
   console.log(questionAnswerArray[questionIndex][5]);
   if (questionIndex < questionAnswerArray.length - 1) {
     if (event.target.textContent == questionAnswerArray[questionIndex][5]) {
+      // display correct
       questionIndex++;
       renderQuestion();
     } else {
-      timerCount = timerCount-10;
+      // display wrong
+      timerCount -= 10;
       questionIndex++;
       renderQuestion();
     }
   } else {
-    highscorePage();
+    highscore();
   }
 }
-  // check the answer selected vs the correct answer and add counter to 1st dimension of the array
 
-  // if statement that says if questionIndex = questionAnswerArray.length - 1 then run highscore page function
-
+// countsdown timer, if 0 seconds, then displays Game Over
 function timerCountdown() {
   timer = setInterval(function() {
-    if (timerCount > 0) {
+    if (timerCount > 0 && !finished) {
       timerCount--;
       timerElement.textContent = timerCount;
-      // print high score/time left
-    }
-    else {
-      // run gameover/display gameover
+    } 
+    else if (timerCount <= 0) {
+      var gameOver = displayQuiz.textContent = "Game Over";
+      gameOver;
+      timerCount = 0;
+      // might need to create element write over other element and make pretty, SUS that it can have 2 equals
+      timerElement.textContent = timerCount;
       return;
+    } 
+    else {
+      timerElement.textContent = timerCount;
+      clearInterval(timer);
     }
   }, 1000);
 }
 
-function highscorePage() {
-  var score = localStorage.setItem("score", score);
-  score += highscores;
-  console.log(highscores);
+function highscore() {
+  finished = true;
+  console.log(timerCount);
+
+  var highscores = JSON.parse(localStorage.getItem("scores"));
+
+  if (highscores == null) {
+    highscores = {};
+  }
+
+  highscores.push(timerCount);
+
+  localStorage.setItem("scores", JSON.stringify(highscores));
+
+  // have text box for initials that saves high score
+  // takes me to highscore page where I can go back to Start quiz or clear highscores
 
   // displayQuiz becomes highscore page
   // stores highscore which is just timer variable. have to store to local storage
   // text/input box for initials
   // sort highscore array greatest to least
 }
-
-/*
-Variables for:
-  questions
-  answer choices
-  timer
-  wrong/right confirmation
-  highscore value
-  highscore submission
-*/
-
-/*
-Functions for:
-  init - loads the stuff
-  scoreCount - counts the score while taking quiz, might get wrapped into results function
-  display question and answer choices - <-- look at that
-    result to question - takes the answer and determines if it's right or wrong, if wrong deduct time
-  timer - make do count down and make display right/wrong
-  completion of quiz - if timer counts down to 0 or all questions answered end quiz
-  ending page score thingy idk - make thing that stores scores to localStorage and options to clear out scores or submit them
-*/
-
