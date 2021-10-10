@@ -1,1 +1,9 @@
-/* make do stuff and look pretty */
+body {
+  background-color: purple;
+  color: orange;
+}
+
+button {
+  color: white;
+  background-color: purple;
+}
