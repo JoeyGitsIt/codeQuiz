@@ -14,8 +14,32 @@ var questionIndex = 0;
 var finished = false;
 var timerCount = 75;
 
+// displayTheQuiz();
+
+
+// function displayTheQuiz() {
+//   var headerEl = document.createElement("h1");
+//   var pTagEl = document.createElement("p");
+//   var buttonEl = document.createElement("button");
+
+//   displayQuiz.appendChild(headerEl);
+//   displayQuiz.appendChild(pTagEl);
+//   displayQuiz.appendChild(buttonEl);
+//   buttonEl.className = ".startQuiz";
+
+//   headerEl.textContent = "Coding Quiz Challenge";
+//   pTagEl.textContent = "This is the quiz";
+//   buttonEl.textContent = "This is a button";
+//   startElement = document.querySelector(".startQuiz");
+//   startQuiz();
+// }
+
+
 startQuiz();
 
+
+
+// Sets an onclick that displays the first question and starts the timer when the button is clicked
 function startQuiz () {
   startElement.addEventListener("click",function() {
     renderQuestion();
@@ -23,6 +47,7 @@ function startQuiz () {
   })
 }
 
+// renders questions
 function renderQuestion () {
   // add some sort of styling to make it look like h1
   displayQuiz.textContent = questionAnswerArray[questionIndex][0];
@@ -40,7 +65,7 @@ function renderQuestion () {
   }
 }
 
-// checks answer and then executes based on accuracy
+// checks answer and adjusts score, displays the next questions, or ends the quiz based on behavior
 function checkAnswer(event) {
   console.log(event.target.textContent);
   console.log(questionAnswerArray[questionIndex][5]);
@@ -57,6 +82,7 @@ function checkAnswer(event) {
     }
   } else {
     highscore();
+          // run the scoreEntryPage function here
   }
 }
 
@@ -82,6 +108,13 @@ function timerCountdown() {
   }, 1000);
 }
 
+function scoreEntryPage() {
+  // enter your initials, then clicking submit takes you to the highscore page
+  // has a header that says "All Done!"
+  // displays your final score
+  // input box that asks for initials with a submit button
+}
+
 function highscore() {
   finished = true;
   console.log(timerCount);
@@ -103,4 +136,10 @@ function highscore() {
   // stores highscore which is just timer variable. have to store to local storage
   // text/input box for initials
   // sort highscore array greatest to least
+}
+
+function highscorePage() {
+  // displays the array in local storage that contains the initials and score
+  // has a go back button that takes you to the first page
+  // has a clear entries button that clears local storage
 }
