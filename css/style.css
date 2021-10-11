@@ -1,6 +1,16 @@
+header {
+  display: flex;
+  align-items: flex-start;
+}
+
+header p {
+  display: flex;
+  align-items: ;
+}
+
 body {
-  background-color: purple;
-  color: orange;
+  /* display: flex;
+  justify-content: center; */
 }
 
 button {

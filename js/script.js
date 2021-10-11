@@ -67,18 +67,18 @@ function timerCountdown() {
   timer = setInterval(function() {
     if (timerCount > 0 && !finished) {
       timerCount--;
-      timerElement.textContent = timerCount;
+      timerElement.textContent = "Time:" + timerCount;
     } 
     else if (timerCount <= 0) {
       var gameOver = displayQuiz.textContent = "Game Over";
       gameOver;
       timerCount = 0;
       // might need to create element write over other element and make pretty, SUS that it can have 2 equals
-      timerElement.textContent = timerCount;
+      timerElement.textContent = "Time:" + timerCount;
       return;
     } 
     else {
-      timerElement.textContent = timerCount;
+      timerElement.textContent = "Time:" + timerCount;
       clearInterval(timer);
     }
   }, 1000);
